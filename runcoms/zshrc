@@ -11,3 +11,46 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+
+# ~/bin in PATH
+if [[ -d ~/bin ]]; then
+    export PATH=$PATH:~/bin
+fi
+
+# more verbose file utilities
+alias mv="mv -vi"
+alias cp="cp -vai"
+alias rm="rm -v"
+alias chmod="chmod -v"
+alias chown="chown -v"
+
+# default editor
+export EDITOR=vim
+export VISUAL=vim
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+# linux brew
+export PATH="$HOME/.linuxbrew/bin:$PATH"
+export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+
+export TERM=xterm-256color
+
+# android studio
+export PATH="$HOME/dev/android/android-studio/bin:$PATH"
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+# 10 second wait if you do something that will delete everything.  I wish I'd 
+# had this before...
+setopt RM_STAR_WAIT
+
+# Configures fasd
+fasd_cache="$HOME/.fasd-init-bash"
+if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache"  ]; then
+    fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install >| "$fasd_cache"
+fi
+source "$fasd_cache"
+unset fasd_cache
